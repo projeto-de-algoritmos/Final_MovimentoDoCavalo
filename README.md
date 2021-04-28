@@ -1,4 +1,4 @@
-# WIP
+# Movimento do Cavalo
 
 **Número da Lista**: 16<br>
 **Conteúdo da Disciplina**: Final<br>
@@ -10,7 +10,7 @@
 | 16/0144485  |  [Saleh Nazih Abdel Kader](https://github.com/devsalula) |
 
 ## Sobre 
-Descreva os objetivos do seu projeto e como ele funciona. 
+O projeto é baseado no exercício [1100](https://www.urionlinejudge.com.br/judge/pt/problems/view/1100) do URI.
 
 ## Screenshots
 Adicione 3 ou mais screenshots do projeto em funcionamento.
