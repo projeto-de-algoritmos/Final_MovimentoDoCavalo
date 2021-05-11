@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {Howl, Howler} from 'howler';
+import { Howl } from 'howler';
 
 export enum SolveType {
   Dijkstra,
@@ -14,7 +14,7 @@ export enum SolveType {
 })
 export class HomepageComponent implements OnInit {
   Type = SolveType;
-  sound = new Howl({ src: ['assets/picapau.mp3'], html5: true });
+  sound = new Howl({ src: ['assets/picapau.mp3'], html5: true, loop: true, volume: 0.5 });
   
   constructor(private route: Router) { }
 
@@ -23,7 +23,6 @@ export class HomepageComponent implements OnInit {
 
   routeToChess = (type: SolveType): void => {
     this.sound.play();
-    Howler.volume(0.5);
     this.route.navigate(['/chess', { type }]);
   }
 }
