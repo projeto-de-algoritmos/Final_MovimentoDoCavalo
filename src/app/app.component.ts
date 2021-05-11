@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GraphBuilder } from 'src/algorithm/GraphBuilder';
 
 @Component({
   selector: 'app-root',
