@@ -75,7 +75,7 @@ p {
 }
 
 .bg-fundo {
-    background-color: honeydew;
+    background-image: url("../../../assets/tenor.gif");
     background-attachment: fixed;
     background-size: cover;
     z-index: -1;
@@ -95,5 +95,13 @@ p {
 }
 
 .container {
-    text-align: center;  
+    text-align: center;
+}
+
+.container-vert {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
