@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { GraphBuilder } from 'src/algorithm/GraphBuilder';
+import { HorseMove } from 'src/algorithm/HorseMove';
 import { SolveType } from '../homepage/homepage.component';
 
 export enum HouseType {
@@ -20,11 +22,12 @@ export class ChessComponent implements OnInit {
   colFinalSelected: number = 0;
   horseSelected: boolean = false;
   Type = HouseType;
+  type: SolveType = SolveType.Dijkstra;
 
-  constructor(private route: Router, private dataRoute: ActivatedRoute) { }
+  constructor(private dataRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(SolveType[(this.dataRoute.snapshot.params['type'])]);
+    this.type = this.dataRoute.snapshot.params['type'];
   }
 
   getInfoOfHouse = (col: number, row: string): HouseType => {
@@ -63,6 +66,14 @@ export class ChessComponent implements OnInit {
   }
 
   calculate = () => {
-    // Calculate here
+    if (this.type == SolveType.BellmanFord) {
+      const builder = new GraphBuilder();
+      const graph = builder.graphGenerator(8);
+      const horseMove = new HorseMove(63);
+      const tour = horseMove.horsePosition(this.rowSelected+this.colSelected, this.rowFinalSelected+this.colFinalSelected, graph);
+      console.log(tour);
+    } else {
+      // Calculate path with Dijkstra
+    }
   }
 }
