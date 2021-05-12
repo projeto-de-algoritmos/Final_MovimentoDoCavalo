@@ -3,16 +3,14 @@ import { Graph } from "./Graph";
 
 export class GraphBuilder {
 
-    private _getNodes(qtNodes: number) {
-        let nodes = new Array();
-        let count = 0;
+    private _getNodes(qtNodes: number): Array<Array<number>> {
+        let nodes = [] as Array<Array<number>>;
+        let count = 1;
         for(let i = 1; i < qtNodes; i++) {
-            let nodeList = new Array();
-            for (let j = 1; j < qtNodes; j++) {
-                nodeList.push(count);
-                count++;
+            nodes[i] = [] as Array<number>;
+            for(let j = 1; j < qtNodes; j++) {
+                nodes[i][j] = count++;
             }
-            nodes.push(nodeList);
         }
         return nodes;
     }
@@ -31,7 +29,7 @@ export class GraphBuilder {
     }
 
     graphGenerator(qtNodes: number): Graph {
-        const nodesGraph = this._getNodes(qtNodes+1);
+        const nodesGraph = this._getNodes(qtNodes);
         let boardPath: BoardPath[] = this._generateBoardPath(350);
         let numberEdges = 0;
         for(let i = 1; i < qtNodes; i++) {
@@ -86,6 +84,7 @@ export class GraphBuilder {
                 }
             }
         }
+
         const graph = {
             boardPath: boardPath,
             numberEdges: numberEdges

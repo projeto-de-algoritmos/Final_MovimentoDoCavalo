@@ -7,7 +7,7 @@ export class HorseMove {
     MAX_SIZE = Infinity;
 
     constructor(size: number) {
-        this.SIZE = !size ? 65 : size;
+        this.SIZE = !size ? 64 : size;
     }
 
     private _convertToNumber(character: string): number {
@@ -29,10 +29,9 @@ export class HorseMove {
 
         moviments[origin] = 0;
 
-        for (let i = 0; i < this.SIZE && finish; i++) {
+        for (let i = 0; i <= this.SIZE && finish; i++) {
             finish = 0;
             for (let j = 0; j < n_arestas; j++) {
-                console.log(moviments[origin] == nodes[j].origin);
                 if (moviments[nodes[j].destiny] > moviments[nodes[j].origin] + nodes[j].weights) {
                     moviments[nodes[j].destiny] = moviments[nodes[j].origin] + nodes[j].weights;
                     finish = 1;
