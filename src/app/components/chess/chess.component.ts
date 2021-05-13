@@ -83,7 +83,6 @@ export class ChessComponent implements OnInit {
       const tour = horseMove.horseBellmanPosition(this.rowSelected+this.colSelected, this.rowFinalSelected+this.colFinalSelected, graph);
       this.path = tour.positions;
       this.result = tour.qtMove;
-      console.log(tour);
     }
   }
 }
