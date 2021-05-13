@@ -19,32 +19,50 @@ export class HorseMove {
             this._convertToNumber(positionNumber) - this._convertToNumber('0')); 
     }
 
-    private _bellmanFord(origin: number, destiny: number, nodes: BoardPath[], n_arestas: number): number {
+    private _bellmanFord(origin: number, destiny: number, nodes: BoardPath[], n_arestas: number) {
         let moviments = new Array();
+        let positions = new Array();
         let finish = 1;
 
         for (let i = 0; i < this.SIZE; i++) {
             moviments.push(this.MAX_SIZE);
+            positions.push(null);
         }
 
         moviments[origin] = 0;
-
+        // console.log(positions);
         for (let i = 0; i <= this.SIZE && finish; i++) {
             finish = 0;
             for (let j = 0; j < n_arestas; j++) {
                 if (moviments[nodes[j].destiny] > moviments[nodes[j].origin] + nodes[j].weights) {
                     moviments[nodes[j].destiny] = moviments[nodes[j].origin] + nodes[j].weights;
+                    positions[nodes[j].destiny] = nodes[j].origin;
                     finish = 1;
                 }
             }
         }
-        return moviments[destiny];
+        let currentShortPath = new Array(); 
+        this.printPath(positions, destiny, currentShortPath);
+        console.log(currentShortPath);
+        const response = {
+            qtMove: moviments[destiny], 
+            positions: currentShortPath
+        }
+        return response;
     }
-    
-    horsePosition(currentPosition: string, destinyPosition: string, graph: Graph) {
+
+    printPath(parent: any, v: number, currentShortPath: Array<number>) {
+        if (v == null) {
+            return;
+        }
+        currentShortPath.push(v);
+        this.printPath(parent, parent[v], currentShortPath);
+    }
+ 
+    horseBellmanPosition(currentPosition: string, destinyPosition: string, graph: Graph) {
         const origin = this._convertPositionToNode(currentPosition[0], currentPosition[1]);
         const destiny = this._convertPositionToNode(destinyPosition[0], destinyPosition[1]);
-        
+
         const tour = this._bellmanFord(origin, destiny, graph.boardPath, graph.numberEdges);
         return tour;
     }
