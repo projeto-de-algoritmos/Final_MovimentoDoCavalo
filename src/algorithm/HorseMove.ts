@@ -17,6 +17,7 @@ export class HorseMove {
     private _convertToString(value: number) {
         let valueRow = (Math.trunc(value/8)) + 'a'.charCodeAt(0);
         let valueColumn = value % 8;
+        valueColumn = valueColumn === 0 ? 8 : valueColumn;
         let charRow = String.fromCharCode(valueRow);
         return charRow + valueColumn.toString();
     }
