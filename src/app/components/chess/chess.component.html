@@ -7,12 +7,15 @@
     </mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list cols="2" rowHeight="100px">
+<mat-grid-list cols="3" rowHeight="100px">
     <mat-grid-tile>
-        Posição do Cavalo: {{ colSelected }} | {{ rowSelected }}
+        <h3>Posição do Cavalo: {{ colSelected }} | {{ rowSelected }}</h3>
     </mat-grid-tile>
     <mat-grid-tile>
-        Posição de Destino: {{ colFinalSelected }} | {{ rowFinalSelected }}
+        <h2 *ngIf="result != 0">Menor Caminho: {{ result }} Movimento(s)</h2>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <h3>Posição de Destino: {{ colFinalSelected }} | {{ rowFinalSelected }}</h3>
     </mat-grid-tile>
 </mat-grid-list>
 
@@ -28,10 +31,15 @@
             <div *ngIf="getInfoOfHouse(col, row) == Type.Blank">
                 {{ col }} | {{ row }}
             </div>
-            <div *ngIf="getInfoOfHouse(col, row) == Type.Horse">
+            <div class="path" *ngIf="getInfoOfHouse(col, row) == Type.Path">
+                {{ getPath(col, row) }}
+            </div>
+            <div class="path" *ngIf="getInfoOfHouse(col, row) == Type.Horse">
+                {{ getPath(col, row) }}
                 <img height="80px" src="../../../assets/pepano.png">
             </div>
-            <div *ngIf="getInfoOfHouse(col, row) == Type.Final">
+            <div class="path" *ngIf="getInfoOfHouse(col, row) == Type.Final">
+                {{ getPath(col, row) }}
                 <img height="80px" src="../../../assets/picapau.png">
             </div>
         </mat-grid-tile>

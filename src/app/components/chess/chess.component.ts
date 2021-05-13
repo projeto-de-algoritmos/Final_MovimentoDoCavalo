@@ -8,6 +8,7 @@ export enum HouseType {
   Blank,
   Horse,
   Final,
+  Path
 }
 
 @Component({
@@ -22,7 +23,9 @@ export class ChessComponent implements OnInit {
   colFinalSelected: number = 0;
   horseSelected: boolean = false;
   Type = HouseType;
-  type: SolveType = SolveType.Dijkstra;
+  type: SolveType = SolveType.BellmanFord;
+  path: string[] = [];
+  result: number = 0;
 
   constructor(private dataRoute: ActivatedRoute) { }
 
@@ -35,8 +38,15 @@ export class ChessComponent implements OnInit {
       return HouseType.Horse;
     } else if (this.rowFinalSelected == row && this.colFinalSelected == col) {
       return HouseType.Final;
+    } else if (this.path.find(element => element == row+col) != undefined ) {
+      return HouseType.Path;
     }
     return HouseType.Blank;
+  }
+
+  getPath = (col: number, row: string): string => {
+    const index = this.path.indexOf(row+col);
+    return String(index == -1 ? '' : index);
   }
 
   getColor = (col: number, row: string): string => {
@@ -68,12 +78,12 @@ export class ChessComponent implements OnInit {
   calculate = () => {
     if (this.type == SolveType.BellmanFord) {
       const builder = new GraphBuilder();
-      const graph = builder.graphGenerator(8);
-      const horseMove = new HorseMove(63);
-      const tour = horseMove.horsePosition(this.rowSelected+this.colSelected, this.rowFinalSelected+this.colFinalSelected, graph);
+      const graph = builder.graphGenerator(9);
+      const horseMove = new HorseMove(64);
+      const tour = horseMove.horseBellmanPosition(this.rowSelected+this.colSelected, this.rowFinalSelected+this.colFinalSelected, graph);
+      this.path = tour.positions;
+      this.result = tour.qtMove;
       console.log(tour);
-    } else {
-      // Calculate path with Dijkstra
     }
   }
 }

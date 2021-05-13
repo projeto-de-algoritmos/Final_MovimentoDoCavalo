@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { Howl } from 'howler';
 
 export enum SolveType {
-  Dijkstra = 0,
-  BellmanFord = 1,
+  BellmanFord = 0,
 }
 
 @Component({

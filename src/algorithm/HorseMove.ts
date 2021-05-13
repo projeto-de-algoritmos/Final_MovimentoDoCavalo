@@ -71,7 +71,7 @@ export class HorseMove {
         const shortPath = this._convertPositionToBoard(currentShortPath);
         const response = {
             qtMove: moviments[destiny], 
-            positions: shortPath
+            positions: shortPath.reverse()
         }
         return response;
     }
