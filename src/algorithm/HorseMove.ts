@@ -14,9 +14,32 @@ export class HorseMove {
         return character.charCodeAt(0);
     }
 
+    private _convertToString(value: number) {
+        let valueRow = (Math.trunc(value/8)) + 'a'.charCodeAt(0);
+        let valueColumn = value % 8;
+        let charRow = String.fromCharCode(valueRow);
+        return charRow + valueColumn.toString();
+    }
+
     private _convertPositionToNode(positionChar: string, positionNumber: string): number {
         return (this._convertToNumber(positionChar) - this._convertToNumber('a'))*8 + (
             this._convertToNumber(positionNumber) - this._convertToNumber('0')); 
+    }
+
+    private _convertPositionToBoard(currentShortPath: Array<number>) {
+        let shortPathBoard = new Array();
+        for(let shortPath of currentShortPath) {
+            shortPathBoard.push(this._convertToString(shortPath));
+        }
+        return shortPathBoard;
+    }
+
+    private _shortPosition(positions: Array<number>, destiny: number, currentShortPath: Array<number>) {
+        if (destiny == null) {
+            return;
+        }
+        currentShortPath.push(destiny);
+        this._shortPosition(positions, positions[destiny], currentShortPath);
     }
 
     private _bellmanFord(origin: number, destiny: number, nodes: BoardPath[], n_arestas: number) {
@@ -30,7 +53,7 @@ export class HorseMove {
         }
 
         moviments[origin] = 0;
-        // console.log(positions);
+
         for (let i = 0; i <= this.SIZE && finish; i++) {
             finish = 0;
             for (let j = 0; j < n_arestas; j++) {
@@ -42,21 +65,13 @@ export class HorseMove {
             }
         }
         let currentShortPath = new Array(); 
-        this.printPath(positions, destiny, currentShortPath);
-        console.log(currentShortPath);
+        this._shortPosition(positions, destiny, currentShortPath);
+        const shortPath = this._convertPositionToBoard(currentShortPath);
         const response = {
             qtMove: moviments[destiny], 
-            positions: currentShortPath
+            positions: shortPath
         }
         return response;
-    }
-
-    printPath(parent: any, v: number, currentShortPath: Array<number>) {
-        if (v == null) {
-            return;
-        }
-        currentShortPath.push(v);
-        this.printPath(parent, parent[v], currentShortPath);
     }
  
     horseBellmanPosition(currentPosition: string, destinyPosition: string, graph: Graph) {
