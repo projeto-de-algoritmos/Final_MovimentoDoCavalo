@@ -46,5 +46,3 @@ Agora tudo o que precisa fazer é instalar as depêndencias (`npm install`) e ro
 ## Uso 
 Para o uso do projeto basta seguir as instruções para poder rodar o front. Ou pode acessar o projeto através do [LINK](https://movimento-pe-de-pano.netlify.app).
 
-## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
